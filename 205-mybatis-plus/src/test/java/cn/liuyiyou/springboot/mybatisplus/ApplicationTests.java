@@ -1,10 +1,10 @@
-package cn.liuyiyou.springboot.elasticsearch;
+package cn.liuyiyou.springboot.mybatisplus;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 
 @SpringBootTest
-class ElasticsearchApplicationTests {
+class ApplicationTests {
 
     @Test
     void contextLoads() {
