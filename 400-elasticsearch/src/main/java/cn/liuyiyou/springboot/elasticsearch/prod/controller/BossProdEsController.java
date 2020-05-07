@@ -1,8 +1,8 @@
 package cn.liuyiyou.springboot.elasticsearch.prod.controller;
 
 
-import cn.liuyiyou.springboot.elasticsearch.prod.entity.BossProd;
 import cn.liuyiyou.springboot.elasticsearch.prod.entity.es.EsBossProd;
+import cn.liuyiyou.springboot.elasticsearch.prod.repository.es.BossProdEsRepository;
 import cn.liuyiyou.springboot.elasticsearch.prod.repository.jpa.BossProdJpaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -25,18 +25,30 @@ import java.util.Optional;
  * @since 2020-05-07
  */
 @RestController
-@RequestMapping("/prod/boss-prod")
-public class BossProdController {
+@RequestMapping("/prod/boss-prod/es")
+public class BossProdEsController {
 
     @Autowired
     private BossProdJpaRepository bossProdJpaRepository;
 
+    @Autowired
+    private BossProdEsRepository bossProdEsRepository;
 
+    @GetMapping("/initMapping")
+    public String initMapping() {
+        return "";
+    }
+
+
+    @GetMapping("/initData")
+    public String initData() {
+        return "";
+    }
 
 
     @GetMapping("/{id}")
-    public BossProd getById(@PathVariable Long id) {
-        Optional<BossProd> bossProd = bossProdJpaRepository.findById(id);
-        return bossProd.orElse(new BossProd());
+    public EsBossProd getById(@PathVariable Long id) {
+        Optional<EsBossProd> bossProd = bossProdEsRepository.findById(id);
+        return bossProd.orElse(new EsBossProd());
     }
 }

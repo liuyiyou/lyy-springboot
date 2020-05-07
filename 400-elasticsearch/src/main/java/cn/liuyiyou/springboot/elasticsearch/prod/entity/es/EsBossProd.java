@@ -1,13 +1,13 @@
-package cn.liuyiyou.springboot.elasticsearch.prod.entity;
+package cn.liuyiyou.springboot.elasticsearch.prod.entity.es;
 
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.springframework.data.elasticsearch.annotations.Document;
+import org.springframework.data.elasticsearch.annotations.Mapping;
+import org.springframework.data.elasticsearch.annotations.Setting;
 
-import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import java.io.Serializable;
 import java.time.LocalDateTime;
@@ -27,17 +27,20 @@ import java.time.LocalDateTime;
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@Entity
-public class BossProd implements Serializable {
+//@Entity
+//指定index索引名称为项目名   指定type类型名称为实体名
+@Document(indexName = "bossprod_index", type = "bossProd")
+//相当于ES中的mapping    注意对比文件中的json和原生json  最外层的key是没有的
+@Mapping(mappingPath = "bossProd-mapping.json")
+//相当于ES中的settings   注意对比文件中的json和原生json  最外层的key是没有的
+@Setting(settingPath = "bossProd-setting.json")
+public class EsBossProd implements Serializable {
 
     private static final long serialVersionUID = 1L;
 
-    /**
-     * BOSS产品标识
-     */
+
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long bossProdId;
+    private Long id;
 
     /**
      * 产品名称

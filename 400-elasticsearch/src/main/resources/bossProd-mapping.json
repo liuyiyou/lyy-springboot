@@ -1,0 +1,31 @@
+{
+  "bossProd": {
+    "properties": {
+      "id": {
+        "type": "long",
+        "index": "not_analyzed"
+      },
+      "prodId": {
+        "type": "long",
+        "index": "analyzed"
+      },
+      "prodName": {
+        "type": "text",
+        "index": "analyzed",
+        "analyzer": "ikIndexAnalyzer",
+        "fields": {
+          "SPY": {
+            "type": "text",
+            "index": "analyzed",
+            "analyzer": "pinyinSimpleIndexAnalyzer"
+          },
+          "FPY": {
+            "type": "text",
+            "index": "analyzed",
+            "analyzer": "pinyinFullIndexAnalyzer"
+          }
+        }
+      }
+    }
+  }
+}
