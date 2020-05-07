@@ -1,13 +1,14 @@
 package cn.liuyiyou.springboot.elasticsearch;
 
 import cn.liuyiyou.springboot.elasticsearch.prod.entity.BossProd;
-import cn.liuyiyou.springboot.elasticsearch.prod.mapper.BossProdMapper;
+import cn.liuyiyou.springboot.elasticsearch.prod.repository.BossProdRepository;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.context.annotation.Import;
-import org.springframework.util.Assert;
+
+import java.util.Optional;
 
 /***
  *
@@ -21,11 +22,11 @@ import org.springframework.util.Assert;
 class BossProdMapperTest {
 
     @Autowired
-    private BossProdMapper bossProdMapper;
+    private BossProdRepository bossProdRepository;
 
     @Test
     public void testGetById() {
-        BossProd bossProd = bossProdMapper.selectById(23200501L);
-        Assert.notNull(bossProd, "bossProd不为空");
+        Optional<BossProd> bossProdOptional = bossProdRepository.findById(23200501L);
+        bossProdOptional.ifPresent(bossProd -> log.info(bossProd.getProdName()));
     }
 }
