@@ -1,7 +1,10 @@
 package cn.liuyiyou.springboot.elasticsearch.prod.repository.es;
 
 import cn.liuyiyou.springboot.elasticsearch.prod.entity.es.EsBossProd;
+import org.springframework.data.domain.Page;
 import org.springframework.data.elasticsearch.repository.ElasticsearchRepository;
+
+import java.util.List;
 
 /***
  *
@@ -12,4 +15,5 @@ import org.springframework.data.elasticsearch.repository.ElasticsearchRepository
 //@NoRepositoryBean
 public interface BossProdEsRepository extends ElasticsearchRepository<EsBossProd, Long> {
 
+    List<EsBossProd> findByProdName(String prodName);
 }

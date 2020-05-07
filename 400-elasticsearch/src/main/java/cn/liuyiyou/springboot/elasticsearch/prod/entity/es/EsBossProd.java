@@ -7,10 +7,8 @@ import org.springframework.data.elasticsearch.annotations.Document;
 import org.springframework.data.elasticsearch.annotations.Mapping;
 import org.springframework.data.elasticsearch.annotations.Setting;
 
-import javax.persistence.Entity;
 import javax.persistence.Id;
 import java.io.Serializable;
-import java.time.LocalDateTime;
 
 /**
  * <p>
@@ -36,84 +34,12 @@ import java.time.LocalDateTime;
 @Setting(settingPath = "bossProd-setting.json")
 public class EsBossProd implements Serializable {
 
-    private static final long serialVersionUID = 1L;
-
-
     @Id
     private Long id;
 
-    /**
-     * 产品名称
-     */
     private String prodName;
 
-    /**
-     * 原子产品标识：
-     * prod_type=0 则 取prod.prod_id;
-     * prod_type=1，填 0。 此时则通过prod_group来定义。。
-     */
     private Long prodId;
-
-    /**
-     * 销售渠道： product_sale_channel.channel_id
-     * <p>
-     * 1	跨境保税
-     * 2	跨境直邮
-     * 3	国际快件（不包税）
-     * 4	国际快件（包税）
-     * 5	完税
-     */
-    private Integer saleChannel;
-
-    /**
-     * 税率id
-     */
-    private Integer taxId;
-
-    /**
-     * 发货地
-     */
-    private String origin;
-
-    /**
-     * 商品供应商ID，引用ibalife_base.base_supplier.supplier_id
-     */
-    private Integer supplierId;
-
-    /**
-     * 产品状态： 1 - 上架，2 - 下架，3－删除
-     */
-    private Integer status;
-
-    /**
-     * 状态变换日期 (上架日期下架日期)
-     */
-    private LocalDateTime statusTime;
-
-    /**
-     * 创建日期
-     */
-    private LocalDateTime createTime;
-
-    /**
-     * 最后一次修改的UNIX时间戳，用于排序，静态页面版本控制。
-     */
-    private Integer lastUpdate;
-
-    /**
-     * 商品同步至营销系统时间
-     */
-    private LocalDateTime syncDrawTime;
-
-    /**
-     * 运费模板: 用户运费模板ID
-     */
-    private Long userFreightTemplateId;
-
-    /**
-     * 运费模板: 供应商运费模板ID
-     */
-    private Long supplierFreightTemplateId;
 
 
 }
