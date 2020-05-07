@@ -30,10 +30,12 @@
         <module>100-helloworld</module>
         <!--SpringBoot 日志-->
         <module>102-log</module>
-        <!--<module>103-properties</module>-->
+        <module>103-properties</module>
         <module>110-spring-cache</module>
         <module>111-spring-cache-redis</module>
         <module>200-sql-jpa</module>
+        <module>300-kafka</module>
+        <module>400-elasticsearch</module>
     </modules>
 
     <build>
