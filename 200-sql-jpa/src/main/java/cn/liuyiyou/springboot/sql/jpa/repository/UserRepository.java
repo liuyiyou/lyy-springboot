@@ -1,9 +1,7 @@
 package cn.liuyiyou.springboot.sql.jpa.repository;
 
 import cn.liuyiyou.springboot.sql.jpa.entity.User;
-import org.springframework.data.repository.PagingAndSortingRepository;
-import org.springframework.data.repository.query.QueryByExampleExecutor;
-import org.springframework.stereotype.Repository;
+import org.springframework.data.jpa.repository.JpaRepository;
 
 /**
  * @author: liuyiyou.cn
@@ -11,8 +9,7 @@ import org.springframework.stereotype.Repository;
  * @version: V1.0
  */
 //@NoRepositoryBean
-@Repository
-public interface UserRepository extends PagingAndSortingRepository<User, Integer>,
-    QueryByExampleExecutor {
+//@Repository
+public interface UserRepository extends JpaRepository<User, Integer> {
 
 }
