@@ -34,6 +34,7 @@
         <module>110-spring-cache</module>
         <module>111-spring-cache-redis</module>
         <module>200-sql-jpa</module>
+        <module>205-mybatis-plus</module>
         <module>300-kafka</module>
         <module>400-elasticsearch</module>
     </modules>
