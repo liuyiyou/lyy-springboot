@@ -21,4 +21,5 @@ public class User {
   private Integer id;
   @Column
   private String name;
+  private String email;
 }
