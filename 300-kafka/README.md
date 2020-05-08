@@ -9,3 +9,11 @@
 再启动kafka服务
 
 >bin\windows\kafka-server-start.bat  config\server.properties
+
+
+# 延时队列
+
+# 事务消息
+
+
+

@@ -24,4 +24,9 @@ public class Application {
     return "300-kafka";
   }
 
+  @GetMapping({"/send"})
+  public String send(){
+    return "300-kafka";
+  }
+
 }
