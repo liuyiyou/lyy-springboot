@@ -1,7 +1,12 @@
 package cn.liuyiyou.springboot.kafka;
 
+import java.util.Collections;
+import java.util.HashMap;
+import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.kafka.clients.consumer.OffsetAndMetadata;
 import org.apache.kafka.clients.producer.ProducerRecord;
+import org.apache.kafka.common.TopicPartition;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
@@ -21,6 +26,23 @@ public class Producer {
 
     @Autowired
     private KafkaTemplate kafkaTemplate;
+
+
+    /**
+     * https://blog.csdn.net/hadues/article/details/88250249
+     * 事务消息
+     * @param topic
+     * @param message
+     * @param userTransaction
+     */
+    public void sendMsg(String topic, String message,boolean userTransaction){
+        if(userTransaction){
+           kafkaTemplate.executeInTransaction(t->{
+               t.send(topic,message);
+               return true;
+           });
+        }
+    }
 
     public void sendMsg(String msg) {
         ListenableFuture<String> send = kafkaTemplate.send("myTopic", msg);
