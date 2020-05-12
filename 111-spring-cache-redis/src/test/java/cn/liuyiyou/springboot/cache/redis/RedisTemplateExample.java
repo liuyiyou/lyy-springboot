@@ -22,19 +22,23 @@ public class RedisTemplateExample {
   @Test
   public void test() {
     RedisCommands<String, String> commands = getStringStringRedisCommands();
-//    init(commands);
+    init(commands);
     listPage(commands);
     setPage(commands);
 
-
     //删除一个元素
-    commands.srem("userSet","user:122");
+    commands.srem("userSet", "user:122");
     commands.del("user:122");
-    commands.lrem("userList",1,"user:123");
+    commands.lrem("userList", 1, "user:123");
     commands.del("user:123");
   }
 
   private void init(RedisCommands<String, String> commands) {
+    commands.del("userList");
+    commands.del("userSet");
+    for (int i = 100; i < 150; i++) {
+      commands.del("user:" + i);
+    }
     for (int i = 100; i < 150; i++) {
       commands.hset("user:" + i, "id", i + "");
       commands.hset("user:" + i, "name", i + "lyy");
