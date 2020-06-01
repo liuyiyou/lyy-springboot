@@ -1,0 +1,71 @@
+{
+  "refresh_interval": "5s",
+  "number_of_shards": 5,
+  "number_of_replicas": 1,
+  "analysis": {
+    "filter": {
+      "pinyin_simple_filter": {
+        "type": "pinyin",
+        "keep_first_letter": true,
+        "keep_separate_first_letter": false,
+        "keep_full_pinyin": false,
+        "keep_original": false,
+        "limit_first_letter_length": 50,
+        "remove_duplicated_term ": true,
+        "lowercase": true
+      }
+    },
+    "char_filter": {
+      "charconvert": {
+        "type": "mapping",
+        "mappings_path": "char_filter_text.txt"
+      },
+      "t2s_convert": {
+        "type": "stconvert",
+        "delimiter": ",",
+        "convert_type": "t2s"
+      }
+    },
+    "tokenizer": {
+      "pinyin_full_tokenizer": {
+        "type": "pinyin",
+        "keep_first_letter": false,
+        "keep_none_chinese_together": true,
+        "keep_none_chinese": true,
+        "keep_full_pinyin": true,
+        "keep_joined_full_pinyin": false,
+        "none_chinese_pinyin_tokenize": true,
+        "keep_original": false,
+        "limit_first_letter_length": 16,
+        "remove_duplicated_term ": true,
+        "lowercase": true
+      },
+      "pinyin_simple_tokenizer": {
+        "type": "pinyin",
+        "keep_first_letter": true,
+        "keep_separate_first_letter": false,
+        "keep_full_pinyin": false,
+        "keep_original": false,
+        "limit_first_letter_length": 16,
+        "lowercase": true
+      }
+    },
+    "analyzer": {
+      "ikIndexAnalyzer": {
+        "type": "custom",
+        "tokenizer": "ik_max_word",
+        "char_filter": [
+          "charconvert",
+          "t2s_convert"
+        ]
+      },
+      "pinyinSimpleIndexAnalyzer": {
+        "tokenizer": "ik_smart",
+        "filter": "pinyin_simple_filter"
+      },
+      "pinyinFullIndexAnalyzer": {
+        "tokenizer": "pinyin_full_tokenizer"
+      }
+    }
+  }
+}
