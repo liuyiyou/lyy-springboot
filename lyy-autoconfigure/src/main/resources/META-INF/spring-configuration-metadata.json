@@ -1,0 +1,48 @@
+{
+  "groups": [
+    {
+      "name": "lyy",
+      "type": "cn.liuyiyou.springboot.autoconfigure.LyyProperties",
+      "sourceType": "cn.liuyiyou.springboot.autoconfigure.LyyProperties"
+    }
+  ],
+  "properties": [
+    {
+      "name": "lyy.age",
+      "type": "java.lang.Integer",
+      "sourceType": "cn.liuyiyou.springboot.autoconfigure.LyyProperties",
+      "description": "age"
+    },
+    {
+      "name": "lyy.name",
+      "type": "java.lang.String",
+      "sourceType": "cn.liuyiyou.springboot.autoconfigure.LyyProperties",
+      "description": "name"
+    },
+    {
+      "name": "lyy.sex",
+      "type": "java.lang.Integer",
+      "sourceType": "cn.liuyiyou.springboot.autoconfigure.LyyProperties",
+      "description": "sex"
+    }
+  ],
+  "hints": [
+    {
+      "name": "lyy.sex",
+      "values": [
+        {
+          "value": "0",
+          "description": "男"
+        },
+        {
+          "value": "1",
+          "description": "女"
+        },
+        {
+          "value": "2",
+          "description": "不男不女"
+        }
+      ]
+    }
+  ]
+}

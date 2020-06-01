@@ -1,0 +1,3 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+cn.liuyiyou.springboot.autoconfigure.LyyAutoConfiguration,\
+cn.liuyiyou.springboot.autoconfigure.LibXWebAutoConfiguration
