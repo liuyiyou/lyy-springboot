@@ -9,17 +9,21 @@
     <version>2.3.0.RELEASE</version>
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
-  <groupId>cn.liuyiyou.springboot</groupId>
-  <artifactId>201-mybatis</artifactId>
+  <groupId>cn.liuyiyou.springboot.plus</groupId>
+  <artifactId>202-mybaits-plus</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>201-mybatis</name>
-  <description>集成MyBatisPlus</description>
+  <name>202-mybaits-plus</name>
+  <description>集成MyBatis-Plus</description>
 
   <properties>
     <java.version>1.8</java.version>
   </properties>
 
   <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-jdbc</artifactId>
+    </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
@@ -29,21 +33,12 @@
       <artifactId>mybatis-spring-boot-starter</artifactId>
       <version>2.1.2</version>
     </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-jdbc</artifactId>
-    </dependency>
+
     <dependency>
       <groupId>mysql</groupId>
       <artifactId>mysql-connector-java</artifactId>
       <scope>runtime</scope>
     </dependency>
-
-    <!--<dependency>-->
-      <!--<groupId>com.h2database</groupId>-->
-      <!--<artifactId>h2</artifactId>-->
-      <!--<scope>runtime</scope>-->
-    <!--</dependency>-->
     <dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-test</artifactId>
@@ -55,19 +50,40 @@
         </exclusion>
       </exclusions>
     </dependency>
+
+
+    <dependency>
+      <groupId>com.baomidou</groupId>
+      <artifactId>mybatis-plus-boot-starter</artifactId>
+      <version>3.3.1.tmp</version>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <optional>true</optional>
+    </dependency>
+
+    <!--代码生成-->
+    <dependency>
+      <groupId>com.baomidou</groupId>
+      <artifactId>mybatis-plus-generator</artifactId>
+      <version>3.3.1.tmp</version>
+    </dependency>
+    <dependency>
+      <groupId>org.apache.velocity</groupId>
+      <artifactId>velocity-engine-core</artifactId>
+      <version>2.2</version>
+    </dependency>
+    <dependency>
+      <groupId>org.freemarker</groupId>
+      <artifactId>freemarker</artifactId>
+      <version>2.3.30</version>
+    </dependency>
+
   </dependencies>
 
   <build>
     <plugins>
-      <plugin>
-        <groupId>org.mybatis.generator</groupId>
-        <artifactId>mybatis-generator-maven-plugin</artifactId>
-        <configuration>
-          <verbose>true</verbose>
-          <overwrite>true</overwrite>
-        </configuration>
-        <version>1.4.0</version>
-      </plugin>
       <plugin>
         <groupId>org.apache.maven.plugins</groupId>
         <artifactId>maven-compiler-plugin</artifactId>
