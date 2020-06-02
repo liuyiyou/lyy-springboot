@@ -1,7 +1,7 @@
 package cn.liuyiyou.springboot.elasticsearch.prod.entity.es;
 
 import java.io.Serializable;
-import javax.validation.constraints.NotNull;
+//import javax.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -24,30 +24,30 @@ import org.springframework.data.elasticsearch.annotations.Setting;
 @AllArgsConstructor
 public class SearchProduct implements Serializable {
 
-  @NotNull
+//  @NotNull
   private Long id;
   private Long skuId;
   private Long actId;
-  @NotNull
+//  @NotNull
   private Long prodId;
   private Long lastUpdate;
-  @NotNull
+//  @NotNull
   private String prodName;
   private String prodAttr;
   private String brandName;
   private String cataName;
   private String firstCataName;
   private String thirdCataName;
-  @NotNull
+//  @NotNull
   private String createDate;
-  @NotNull
+//  @NotNull
   private String pic;
   private String countryId;
   private String countryName;
   private String brandNameEn;
-  @NotNull
+//  @NotNull
   private Float prodPrice;
-  @NotNull
+//  @NotNull
   private Float referPrice;
   private Float commission;
 
@@ -57,9 +57,9 @@ public class SearchProduct implements Serializable {
   private Integer cataId;
   private Integer thirdCataId;
   private Integer firstCataId;
-  @NotNull
+//  @NotNull
   private Integer scope;
-  @NotNull
+//  @NotNull
   private Boolean isCombo;
   private Integer newFlag;
   private Integer hotFlag;
