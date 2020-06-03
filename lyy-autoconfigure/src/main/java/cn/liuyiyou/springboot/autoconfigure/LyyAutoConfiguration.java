@@ -24,4 +24,7 @@ public class LyyAutoConfiguration {
     log.info(lyyProperties.getName(), lyyProperties.getAge());
     log.info("永远18");
   }
+
+
+
 }
