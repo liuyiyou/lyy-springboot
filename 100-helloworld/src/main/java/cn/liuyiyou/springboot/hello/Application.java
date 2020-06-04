@@ -18,7 +18,7 @@ public class Application {
 //        app.run(args);
     new SpringApplicationBuilder()
         .sources(Application.class)
-        .bannerMode(Banner.Mode.OFF)
+//        .bannerMode(Banner.Mode.OFF)
         .run(args);
   }
 

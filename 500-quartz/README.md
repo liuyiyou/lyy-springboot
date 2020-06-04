@@ -4,6 +4,7 @@
 ###  概念
 
 JOB： 作业
+JobDetail： 
 Scheduler ：调度
 Trigger： 触发器
 
@@ -23,3 +24,4 @@ Trigger： 触发器
 ## 参考资料
 
 https://www.quartz-scheduler.org/documentation/quartz-2.3.0/
+https://docs.spring.io/spring-boot/docs/2.3.0.RELEASE/reference/html/spring-boot-features.html#boot-features-quartz
