@@ -2,6 +2,7 @@ package cn.liuyiyou.springboot.sql.jpa.service;
 
 import cn.liuyiyou.springboot.sql.jpa.entity.User;
 import cn.liuyiyou.springboot.sql.jpa.repository.UserRepository;
+import java.util.List;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,7 +18,11 @@ import org.springframework.stereotype.Service;
 public class UserService {
 
   @Autowired
-  private UserRepository  userRepository;
+  private UserRepository userRepository;
+
+  public List<User> getAll() {
+    return userRepository.findAll();
+  }
 
   public User save(User user) {
     return userRepository.save(user);
