@@ -40,6 +40,7 @@
     <module>202-mybaits-plus</module>
     <module>300-kafka</module>
     <module>400-elasticsearch</module>
+    <module>500-quartz</module>
     <module>lyy-starter</module>
     <module>lyy-autoconfigure</module>
     <module>lyy-app</module>
