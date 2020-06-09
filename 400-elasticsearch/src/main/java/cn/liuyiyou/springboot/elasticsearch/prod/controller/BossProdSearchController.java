@@ -32,15 +32,15 @@ public class BossProdSearchController {
      * @param key
      */
     @GetMapping("/query")
-    public Page<EsBossProd>  termQuery(String key) {
+    public Page<EsBossProd>  termQuery(String key,int page ,int pageSize) {
         //单匹配不分词
         TermQueryBuilder termQueryBuilder = QueryBuilders.termQuery("prodName", key);
-        Page<EsBossProd> termSearch = bossProdEsRepository.search(termQueryBuilder, PageRequest.of(0, 10));
+        Page<EsBossProd> termSearch = bossProdEsRepository.search(termQueryBuilder, PageRequest.of(page, pageSize));
         log.info(JSONUtil.toJsonStr(termSearch.getContent()));
 
         //单匹配分词
         MatchQueryBuilder matchQueryBuilder = QueryBuilders.matchQuery("prodName", key);
-        Page<EsBossProd> matchSsearch = bossProdEsRepository.search(matchQueryBuilder, PageRequest.of(0, 10));
+        Page<EsBossProd> matchSsearch = bossProdEsRepository.search(matchQueryBuilder, PageRequest.of(page, pageSize));
         log.info(JSONUtil.toJsonStr(matchSsearch.getContent()));
         return matchSsearch;
     }

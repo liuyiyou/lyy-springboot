@@ -1,6 +1,8 @@
 # 说明
-1、 es使用版本
+1、 es使用版本   D:\Soft\elasticsearch-6.6.1
 2、 es使用插件
+ik
+
 
 # 查询
 

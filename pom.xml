@@ -39,9 +39,13 @@
     <module>201-mybatis</module>
     <module>202-mybaits-plus</module>
     <module>300-kafka</module>
+    <module>301-rabbitmq</module>
+    <module>302-rocketmq</module>
     <module>400-elasticsearch</module>
     <module>500-quartz</module>
     <module>600-security-hello</module>
+    <module>700-admin</module>
+    <module>701-client</module>
     <module>lyy-starter</module>
     <module>lyy-autoconfigure</module>
     <module>lyy-app</module>
