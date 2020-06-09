@@ -10,10 +10,10 @@ import org.springframework.web.bind.annotation.RestController;
 @SpringBootApplication
 @RestController
 @Slf4j
-public class Application {
+public class LogApplication {
 
   public static void main(String[] args) {
-    SpringApplication app = new SpringApplication(Application.class);
+    SpringApplication app = new SpringApplication(LogApplication.class);
     app.setBannerMode(Mode.OFF);
     app.run(args);
   }

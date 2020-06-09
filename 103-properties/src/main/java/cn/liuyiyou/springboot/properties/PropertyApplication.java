@@ -1,6 +1,5 @@
 package cn.liuyiyou.springboot.properties;
 
-import java.util.Properties;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.boot.SpringApplication;
@@ -10,7 +9,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @SpringBootApplication
 @RestController
-public class Application {
+public class PropertyApplication {
 
   @Autowired
   private ErpConfiguration erpConfiguration;
@@ -21,7 +20,7 @@ public class Application {
   private Integer age;
 
   public static void main(String[] args) {
-    SpringApplication.run(Application.class, args);
+    SpringApplication.run(PropertyApplication.class, args);
   }
 
   @GetMapping("/")

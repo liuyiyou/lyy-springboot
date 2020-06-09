@@ -1,13 +1,13 @@
-package cn.liuyiyou.boot.temp;
+package cn.liuyiyou.springboot.exception;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-public class Application {
+public class ExceptionApplication {
 
   public static void main(String[] args) {
-    SpringApplication.run(Application.class, args);
+    SpringApplication.run(ExceptionApplication.class, args);
   }
 
 }
