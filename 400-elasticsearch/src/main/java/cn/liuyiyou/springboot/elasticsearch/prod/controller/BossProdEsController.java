@@ -12,6 +12,7 @@ import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
+import org.springframework.data.elasticsearch.core.ElasticsearchRestTemplate;
 import org.springframework.data.elasticsearch.core.ElasticsearchTemplate;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -47,14 +48,14 @@ public class BossProdEsController {
     @Autowired
     private BossProdEsRepository bossProdEsRepository;
     @Autowired
-    private ElasticsearchTemplate elasticsearchTemplate;
+    private ElasticsearchRestTemplate elasticsearchRestTemplate;
 
 
     @GetMapping("/initMapping")
     public String initMapping() {
-        elasticsearchTemplate.deleteIndex(EsBossProd.class);
-        elasticsearchTemplate.createIndex(EsBossProd.class);   // 创建索引
-        elasticsearchTemplate.putMapping(EsBossProd.class);   // 设置映射
+        elasticsearchRestTemplate.deleteIndex(EsBossProd.class);
+        elasticsearchRestTemplate.createIndex(EsBossProd.class);   // 创建索引
+        elasticsearchRestTemplate.putMapping(EsBossProd.class);   // 设置映射
         return "success";
     }
 
