@@ -19,14 +19,20 @@ public class Application {
   private Producer producer;
 
   @GetMapping({"/"})
-  public String home(){
+  public String home() {
     producer.sendMsg("MyMsg");
     return "300-kafka";
   }
 
   @GetMapping({"/send"})
-  public String send(){
-    return "300-kafka";
+  public String send(String message) {
+    producer.sendMsg("default-topic", message);
+    return "指定key";
   }
 
+  @GetMapping({"/transSend"})
+  public String transSend(String message) {
+    producer.sendMsg("default-topic", message,true);
+    return "发送事务消息";
+  }
 }
