@@ -1,8 +1,7 @@
 package cn.liuyiyou.springboot.sql.jpa.service;
 
-import cn.liuyiyou.springboot.sql.jpa.entity.User;
+import cn.liuyiyou.springboot.sql.jpa.entity.UserAddress;
 import cn.liuyiyou.springboot.sql.jpa.repository.UserAddressRepository;
-import cn.liuyiyou.springboot.sql.jpa.repository.UserRepository;
 import java.util.List;
 import java.util.Optional;
 import lombok.extern.slf4j.Slf4j;
@@ -16,25 +15,22 @@ import org.springframework.stereotype.Service;
  */
 @Service
 @Slf4j
-public class UserService {
+public class UserAddressService {
 
-  @Autowired
-  private UserRepository userRepository;
   @Autowired
   private UserAddressRepository userAddressRepository;
 
-  public List<User> getAll() {
-    return userRepository.findAll();
+  public List<UserAddress> getAll() {
+    return userAddressRepository.findAll();
   }
 
-  public User save(User user) {
-    return userRepository.save(user);
+  public UserAddress save(UserAddress userAddress) {
+    return userAddressRepository.save(userAddress);
   }
 
-  public Optional<User> findUserById(Integer id) {
-    Optional<User> userOptional = userRepository.findById(id);
+  public Optional<UserAddress> findUserAddreById(Integer id) {
+    Optional<UserAddress> userOptional = userAddressRepository.findById(id);
     return userOptional;
   }
-
 
 }

@@ -5,7 +5,11 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import lombok.Data;
+import lombok.ToString;
 
 /**
  * @author: liuyiyou.cn
@@ -14,6 +18,7 @@ import lombok.Data;
  */
 @Data
 @Entity
+@ToString
 public class User {
 
   @Id
@@ -21,5 +26,14 @@ public class User {
   private Integer id;
   @Column
   private String name;
+  @Column
   private String email;
+
+  @OneToOne
+  @JoinColumn(name = "userId")
+  private UserAddress userAddress;
+
+//  @OneToMany
+//  @JoinColumn(name = "id")
+//  private UserAddress userAddressList;
 }
