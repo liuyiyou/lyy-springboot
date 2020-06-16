@@ -13,10 +13,10 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class OtherConsumer {
 
-//  @KafkaListener(topics = "default-topic")
-//  public void processMessage(String msg){
-//    log.info("OtherConsumer");
-//    log.info(msg);
-//  }
+  @KafkaListener(topics = "default-topic")
+  public void processMessage(String msg){
+    log.info("OtherConsumer");
+    log.info(msg);
+  }
 
 }

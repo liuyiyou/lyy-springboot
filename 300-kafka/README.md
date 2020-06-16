@@ -10,6 +10,13 @@
 
 >bin\windows\kafka-server-start.bat  config\server.properties
 
+# 一对一
+同一个group 同一个topic 随机消费
+
+# 一对多
+不同group 同一topic 全部消费
+
+# 自定义分区、和拦截器
 
 # 延时队列
 
