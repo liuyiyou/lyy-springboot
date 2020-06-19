@@ -6,18 +6,17 @@
   <parent>
     <groupId>org.springframework.boot</groupId>
     <artifactId>spring-boot-starter-parent</artifactId>
-    <version>2.3.0.RELEASE</version>
+    <version>2.3.1.RELEASE</version>
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
   <groupId>cn.liuyiyou.springboot</groupId>
-  <artifactId>111-spring-cache-redis</artifactId>
+  <artifactId>112-spring-cache-hibernate</artifactId>
   <version>0.0.1-SNAPSHOT</version>
-  <name>111-spring-cache-redis</name>
-  <description>Demo project for Spring Boot</description>
+  <name>112-spring-cache-hibernate</name>
+  <description>使用Redis+hibernate二级缓存</description>
 
   <properties>
     <java.version>1.8</java.version>
-    <spring-boot-admin.version>2.2.3</spring-boot-admin.version>
   </properties>
 
   <dependencies>
@@ -31,36 +30,11 @@
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-data-redis</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-validation</artifactId>
     </dependency>
     <dependency>
       <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-starter-aop</artifactId>
-    </dependency>
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
-    </dependency>
-
-    <dependency>
-      <groupId>org.springframework.boot</groupId>
-      <artifactId>spring-boot-devtools</artifactId>
-      <scope>runtime</scope>
-      <optional>true</optional>
-    </dependency>
-    <!--<dependency>-->
-      <!--<groupId>mysql</groupId>-->
-      <!--<artifactId>mysql-connector-java</artifactId>-->
-      <!--<scope>runtime</scope>-->
-    <!--</dependency>-->
-    <dependency>
-      <groupId>com.h2database</groupId>
-      <artifactId>h2</artifactId>
-      <scope>runtime</scope>
     </dependency>
     <dependency>
       <groupId>org.projectlombok</groupId>
@@ -79,22 +53,22 @@
       </exclusions>
     </dependency>
     <dependency>
-      <groupId>de.codecentric</groupId>
-      <artifactId>spring-boot-admin-starter-client</artifactId>
+      <groupId>org.redisson</groupId>
+      <artifactId>redisson</artifactId>
+      <version>3.12.1</version>
+    </dependency>
+    <dependency>
+      <groupId>org.hibernate</groupId>
+      <artifactId>hibernate-jcache</artifactId>
+      <version>5.4.17.Final</version>
+    </dependency>
+    <dependency>
+      <groupId>com.h2database</groupId>
+      <artifactId>h2</artifactId>
+      <scope>runtime</scope>
     </dependency>
   </dependencies>
 
-  <dependencyManagement>
-    <dependencies>
-      <dependency>
-        <groupId>de.codecentric</groupId>
-        <artifactId>spring-boot-admin-dependencies</artifactId>
-        <version>${spring-boot-admin.version}</version>
-        <type>pom</type>
-        <scope>import</scope>
-      </dependency>
-    </dependencies>
-  </dependencyManagement>
   <build>
     <plugins>
       <plugin>

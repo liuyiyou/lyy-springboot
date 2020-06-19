@@ -34,6 +34,11 @@ public class UserService {
     return user;
   }
 
+  /**
+   * @Caching(evict = {
+   * @CacheEvict(value = "user", key = "#id") }, put = {@CachePut(value = "user", key = "#id")})
+   */
+//  @CacheEvict(value = "user", key = "#id")
   @CachePut(value = "user", key = "#id")
   public User updateEmail(Integer id, String emial) {
     User user = userRepository.save(findById(id).setEmail(emial));
@@ -48,6 +53,7 @@ public class UserService {
     return userOptional
         .orElseThrow(() -> new RuntimeException(String.format("User.id=%s Not Found", id)));
   }
+
 
 
   @CacheEvict(value = "user", key = "#id")
