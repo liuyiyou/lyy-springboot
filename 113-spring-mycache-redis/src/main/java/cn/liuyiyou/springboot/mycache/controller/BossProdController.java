@@ -4,7 +4,8 @@ package cn.liuyiyou.springboot.mycache.controller;
 import cn.liuyiyou.springboot.mycache.entity.BossProd;
 import cn.liuyiyou.springboot.mycache.service.BossProdService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -34,5 +35,10 @@ public class BossProdController {
   @GetMapping("/{id}")
   public BossProd getById(@PathVariable Long id) {
     return bossProdService.findById(id);
+  }
+
+  @GetMapping()
+  public Object getById(Pageable pageable) {
+    return bossProdService.page(pageable);
   }
 }

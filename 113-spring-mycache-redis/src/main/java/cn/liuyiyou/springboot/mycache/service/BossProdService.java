@@ -2,11 +2,14 @@ package cn.liuyiyou.springboot.mycache.service;
 
 import cn.liuyiyou.springboot.mycache.entity.BossProd;
 import cn.liuyiyou.springboot.mycache.repository.BossProdRepository;
+import cn.liuyiyou.springboot.mycache.utils.PageUtil;
 import java.util.Optional;
-import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheConfig;
+import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 /**
@@ -19,12 +22,17 @@ import org.springframework.stereotype.Service;
 public class BossProdService {
 
   @Autowired
-  private  BossProdRepository bossProdRepository;
+  private BossProdRepository bossProdRepository;
 
-  @Cacheable(value = "prod", key = "#id")
+  @Cacheable
   public BossProd findById(Long id) {
     Optional<BossProd> bossProdOptional = bossProdRepository.findById(id);
     return bossProdOptional.orElse(new BossProd());
+  }
+  @Cacheable
+  public Object page(Pageable pageable) {
+    Page<BossProd> all = bossProdRepository.findAll(pageable);
+    return PageUtil.toPage(all);
   }
 
 }
