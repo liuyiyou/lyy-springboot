@@ -20,6 +20,12 @@ public class RabbitController {
   @Autowired
   private SimpleSender simpleSender;
 
+  @GetMapping("/send")
+  public String send(String message) {
+    simpleSender.send(message);
+    return "success";
+  }
+
   @GetMapping("/simple")
   public String simple() {
     String message = "hello";

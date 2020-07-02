@@ -1,4 +1,4 @@
-package cn.liuyiyou.springboot.rabbitmq.receiv;
+package cn.liuyiyou.springboot.rabbitmq2.receive;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
@@ -15,7 +15,7 @@ public class SimpleReceiver {
 
   @RabbitHandler
   public void receive(String message) {
-    log.info("[X] received '{}'", message);
+    log.info("[X2] received '{}'", message);
   }
 
 }

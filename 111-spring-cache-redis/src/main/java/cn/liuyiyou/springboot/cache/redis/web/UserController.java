@@ -25,6 +25,11 @@ public class UserController {
     return userService.findById(id);
   }
 
+  @GetMapping("/new/{id}")
+  public User newget(@PathVariable("id") Integer id) {
+    return userService.findById2(id);
+  }
+
   @GetMapping("/save")
   public User save(Integer id, String name) {
     User user = new User();
