@@ -1,4 +1,4 @@
-package cn.liuyiyou.springboot.mycache.entity;
+package cn.liuyiyou.springboot.mycache.dal.entity;
 
 import java.io.Serializable;
 import java.time.LocalDateTime;

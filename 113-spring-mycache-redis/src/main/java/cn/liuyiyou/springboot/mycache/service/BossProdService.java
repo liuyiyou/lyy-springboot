@@ -4,13 +4,12 @@ import cn.liuyiyou.springboot.mycache.annotation.CachePrefix;
 import cn.liuyiyou.springboot.mycache.annotation.GetCache;
 import cn.liuyiyou.springboot.mycache.annotation.PageCache;
 import cn.liuyiyou.springboot.mycache.annotation.PutCache;
-import cn.liuyiyou.springboot.mycache.entity.BossProd;
-import cn.liuyiyou.springboot.mycache.repository.BossProdRepository;
+import cn.liuyiyou.springboot.mycache.dal.entity.BossProd;
+import cn.liuyiyou.springboot.mycache.dal.repository.BossProdRepository;
 import cn.liuyiyou.springboot.mycache.utils.PageUtil;
 import java.time.LocalDateTime;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.annotation.CacheConfig;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -43,12 +42,11 @@ public class BossProdService {
 
   @PageCache
   public Object pageCache(Pageable pageable) {
-    bossProdRepository.deleteAll();
     Page<BossProd> all = bossProdRepository.findAll(pageable);
     return PageUtil.toPage(all);
   }
 
-  public BossProd updateBySelective(BossProd bossProd){
+  public BossProd updateBySelective(BossProd bossProd) {
     return bossProdRepository.save(bossProd);
   }
 
@@ -59,10 +57,14 @@ public class BossProdService {
       BossProd bossProd = bossProdOptional.get();
       bossProd.setCreateTime(LocalDateTime.now());
       return bossProdRepository.save(bossProd);
-    }else{
+    } else {
       return new BossProd();
     }
 
+  }
+
+  public BossProd save(Long id, BossProd bossProd) {
+    return bossProdRepository.save(bossProd);
   }
 
   @Cacheable
@@ -71,8 +73,5 @@ public class BossProdService {
     return PageUtil.toPage(all);
   }
 
-  public BossProd save(BossProd bossProd){
-    return  bossProdRepository.save(bossProd);
-  }
 
 }

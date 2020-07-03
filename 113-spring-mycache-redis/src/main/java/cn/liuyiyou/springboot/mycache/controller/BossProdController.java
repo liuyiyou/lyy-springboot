@@ -1,10 +1,9 @@
 package cn.liuyiyou.springboot.mycache.controller;
 
 
-import cn.liuyiyou.springboot.mycache.entity.BossProd;
+import cn.liuyiyou.springboot.mycache.dal.entity.BossProd;
 import cn.liuyiyou.springboot.mycache.service.BossProdService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -58,9 +57,9 @@ public class BossProdController {
 
   @PutMapping()
   public BossProd update(@RequestBody BossProd bossProd){
-     BossProd byId = bossProdService.findById(bossProd.getBossProdId());
-     byId.setProdName(bossProd.getProdName());
-    return bossProdService.save(byId);
+     BossProd dbBossProd = bossProdService.findById(bossProd.getBossProdId());
+     dbBossProd.setProdName(bossProd.getProdName());
+    return bossProdService.save(bossProd.getBossProdId(),dbBossProd);
   }
 
 }

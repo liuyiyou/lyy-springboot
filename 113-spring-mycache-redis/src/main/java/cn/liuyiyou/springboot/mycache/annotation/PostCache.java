@@ -5,6 +5,6 @@ package cn.liuyiyou.springboot.mycache.annotation;
  * @date: 2020/7/2
  * @version: V1.0
  */
-public interface PostCache {
+public @interface PostCache {
 
 }
