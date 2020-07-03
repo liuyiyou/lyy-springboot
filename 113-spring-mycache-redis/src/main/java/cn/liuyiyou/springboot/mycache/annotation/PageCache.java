@@ -6,8 +6,6 @@ import java.lang.annotation.Inherited;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
 import java.lang.annotation.Target;
-import javax.persistence.Cacheable;
-import org.springframework.core.annotation.AliasFor;
 
 /**
  * 洋老板缓存
@@ -21,11 +19,11 @@ import org.springframework.core.annotation.AliasFor;
 @Inherited
 @Documented
 //@Cacheable
-public @interface GetCache {
+public @interface PageCache {
 
 //  @AliasFor(annotation = Cacheable.class)
-  String key() default "";
+//  String key() default "";
 
 //  @AliasFor("cacheNames")
-//  String keyPrefix() default "";
+  String keyPrefix() default "Page:";
 }

@@ -8,6 +8,8 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,16 +31,36 @@ public class BossProdController {
 
   @Autowired
   private BossProdService bossProdService;
-
-
+//
+//  @GetMapping("/old/{id}")
+//  public BossProd getByIdOld(@PathVariable Long id) {
+//    return bossProdService.findById2(id);
+//  }
 
   @GetMapping("/{id}")
   public BossProd getById(@PathVariable Long id) {
     return bossProdService.findById(id);
   }
-
   @GetMapping()
+  public Object pageCache(Pageable pageable) {
+    return bossProdService.pageCache(pageable);
+  }
+
+  @GetMapping("/page")
   public Object getById(Pageable pageable) {
     return bossProdService.page(pageable);
   }
+
+  @GetMapping("/update/{id}")
+  public BossProd updateById(@PathVariable Long id) {
+    return bossProdService.updateById(id);
+  }
+
+  @PutMapping()
+  public BossProd update(@RequestBody BossProd bossProd){
+     BossProd byId = bossProdService.findById(bossProd.getBossProdId());
+     byId.setProdName(bossProd.getProdName());
+    return bossProdService.save(byId);
+  }
+
 }

@@ -1,5 +1,6 @@
 package cn.liuyiyou.springboot.mycache.config;
 
+import cn.hutool.json.JSONUtil;
 import com.alibaba.fastjson.JSON;
 import com.alibaba.fastjson.parser.ParserConfig;
 import com.alibaba.fastjson.serializer.SerializerFeature;
@@ -7,22 +8,25 @@ import com.fasterxml.jackson.annotation.JsonTypeInfo;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.SerializationFeature;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
+import java.lang.reflect.Method;
 import java.nio.charset.StandardCharsets;
 import java.time.Duration;
+import java.util.HashMap;
+import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
+import org.apache.commons.codec.digest.DigestUtils;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnClass;
 import org.springframework.boot.autoconfigure.condition.ConditionalOnMissingBean;
 import org.springframework.boot.autoconfigure.data.redis.RedisProperties;
 import org.springframework.boot.context.properties.EnableConfigurationProperties;
-import org.springframework.cache.CacheManager;
 import org.springframework.cache.annotation.CachingConfigurerSupport;
 import org.springframework.cache.annotation.EnableCaching;
+import org.springframework.cache.interceptor.KeyGenerator;
+import org.springframework.cache.interceptor.SimpleKey;
+import org.springframework.cache.interceptor.SimpleKeyGenerator;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.annotation.Primary;
 import org.springframework.data.redis.cache.RedisCacheConfiguration;
-import org.springframework.data.redis.cache.RedisCacheManager;
-import org.springframework.data.redis.cache.RedisCacheWriter;
 import org.springframework.data.redis.connection.RedisConnectionFactory;
 import org.springframework.data.redis.core.RedisOperations;
 import org.springframework.data.redis.core.RedisTemplate;
@@ -45,8 +49,8 @@ public class RedisConfig extends CachingConfigurerSupport {
 
   @Bean(name = "redisTemplate")
   @ConditionalOnMissingBean(name = "redisTemplate")
-  public RedisTemplate<Object, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
-    RedisTemplate<Object, Object> template = new RedisTemplate<>();
+  public RedisTemplate<String, Object> redisTemplate(RedisConnectionFactory redisConnectionFactory) {
+    RedisTemplate<String, Object> template = new RedisTemplate<>();
     //序列化
     FastJsonRedisSerializer<Object> fastJsonRedisSerializer = new FastJsonRedisSerializer<>(Object.class);
     // value值的序列化采用fastJsonRedisSerializer
@@ -92,31 +96,50 @@ public class RedisConfig extends CachingConfigurerSupport {
 //        .cacheDefaults(redisCacheConfiguration).build();
 //  }
 
+
+//  @Override
+  @Bean("simpleKeyGenerator")
+  public KeyGenerator simpleKeyGenerator() {
+    return new SimpleKeyGenerator();
+//    return (target, method, params) -> {
+//      if (params.length == 0) {
+//        return SimpleKey.EMPTY;
+//      }
+//      if (params.length == 1) {
+//        Object param = params[0];
+//        if (param != null && !param.getClass().isArray()) {
+//          return param;
+//        }
+//      }
+//      return new SimpleKey(params);
+//    };
+  }
+
   /**
    * 自定义缓存key生成策略，默认将使用该策略
    */
-//  @Bean
-//  @Override
-//  public KeyGenerator keyGenerator() {
-//    return (target, method, params) -> {
-//      Map<String,Object> container = new HashMap<>(3);
-//      Class<?> targetClassClass = target.getClass();
-//      // 类地址
-//      container.put("class",targetClassClass.toGenericString());
-//      // 方法名称
-//      container.put("methodName",method.getName());
-//      // 包名称
-//      container.put("package",targetClassClass.getPackage());
-//      // 参数列表
-//      for (int i = 0; i < params.length; i++) {
-//        container.put(String.valueOf(i),params[i]);
-//      }
-//      // 转为JSON字符串
-//      String jsonString = JSONUtil.toJsonStr(container);
-//      // 做SHA256 Hash计算，得到一个SHA256摘要作为Key
-//      return DigestUtils.sha256Hex(jsonString);
-//    };
-//  }
+  @Bean
+  @Override
+  public KeyGenerator keyGenerator() {
+    return (target, method, params) -> {
+      Map<String,Object> container = new HashMap<>(3);
+      Class<?> targetClassClass = target.getClass();
+      // 类地址
+      container.put("class",targetClassClass.toGenericString());
+      // 方法名称
+      container.put("methodName",method.getName());
+      // 包名称
+      container.put("package",targetClassClass.getPackage());
+      // 参数列表
+      for (int i = 0; i < params.length; i++) {
+        container.put(String.valueOf(i),params[i]);
+      }
+      // 转为JSON字符串
+      String jsonString = JSONUtil.toJsonStr(container);
+      // 做SHA256 Hash计算，得到一个SHA256摘要作为Key
+      return DigestUtils.sha256Hex(jsonString);
+    };
+  }
 
 
   private RedisSerializer<String> keySerializer() {

@@ -1,33 +1,27 @@
-package cn.liuyiyou.springboot.mycache.entity;
+package cn.liuyiyou.springboot.plus.prod.entity;
 
-import java.io.Serializable;
+import com.baomidou.mybatisplus.annotation.TableId;
 import java.time.LocalDateTime;
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
+import java.io.Serializable;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
-import org.hibernate.annotations.DynamicUpdate;
 
 /**
  * <p>
  * BOSS 商品信息表，支持：
- * <p>
- * 1、对原子商品 prod 的继承扩展 。 这种情况下，只是将prod 里面的记录附加一下洋老板平台的必要信息 。
- * <p>
- * 2、对原子商品，商品SKU的组合打包。这种情况下，则是对不同原子商品(基础商品)组合，然后重新定义SKU。
+
+1、对原子商品 prod 的继承扩展 。 这种情况下，只是将prod 里面的记录附加一下洋老板平台的必要信息 。
+
+2、对原子商品，商品SKU的组合打包。这种情况下，则是对不同原子商品(基础商品)组合，然后重新定义SKU。
  * </p>
  *
  * @author liuyiyou
- * @since 2020-05-07
+ * @since 2020-07-03
  */
 @Data
 @EqualsAndHashCode(callSuper = false)
 @Accessors(chain = true)
-@Entity
-@DynamicUpdate
 public class BossProd implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -35,8 +29,7 @@ public class BossProd implements Serializable {
     /**
      * BOSS产品标识
      */
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @TableId
     private Long bossProdId;
 
     /**
@@ -46,19 +39,19 @@ public class BossProd implements Serializable {
 
     /**
      * 原子产品标识：
-     * prod_type=0 则 取prod.prod_id;
-     * prod_type=1，填 0。 此时则通过prod_group来定义。。
+prod_type=0 则 取prod.prod_id;
+prod_type=1，填 0。 此时则通过prod_group来定义。。
      */
     private Long prodId;
 
     /**
      * 销售渠道： product_sale_channel.channel_id
-     * <p>
-     * 1	跨境保税
-     * 2	跨境直邮
-     * 3	国际快件（不包税）
-     * 4	国际快件（包税）
-     * 5	完税
+
+1	跨境保税
+2	跨境直邮
+3	国际快件（不包税）
+4	国际快件（包税）
+5	完税
      */
     private Integer saleChannel;
 
@@ -111,6 +104,11 @@ public class BossProd implements Serializable {
      * 运费模板: 供应商运费模板ID
      */
     private Long supplierFreightTemplateId;
+
+    /**
+     * 是否可见 0隐藏 1可见
+     */
+    private Boolean visible;
 
 
 }
