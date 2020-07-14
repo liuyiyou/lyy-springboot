@@ -1,7 +1,10 @@
 package cn.liuyiyou.springboot.mycache.aop;
 
 import cn.liuyiyou.springboot.mycache.annotation.CachePrefix;
-import cn.liuyiyou.springboot.mycache.annotation.PutCache;
+import cn.liuyiyou.springboot.mycache.annotation.DelCache;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import com.fasterxml.jackson.databind.SerializationFeature;
+import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
 import java.lang.reflect.Method;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -11,6 +14,8 @@ import org.aspectj.lang.reflect.MethodSignature;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.interceptor.KeyGenerator;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.serializer.GenericJackson2JsonRedisSerializer;
+import org.springframework.data.redis.serializer.RedisSerializer;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 
@@ -21,7 +26,7 @@ import org.springframework.util.StringUtils;
  */
 @Aspect
 @Component
-public class PutCacheAspect {
+public class DelCacheAspect {
 
   @Autowired
   private KeyGenerator simpleKeyGenerator;
@@ -29,34 +34,34 @@ public class PutCacheAspect {
   @Autowired
   RedisTemplate<String, Object> redisTemplate;
 
-  @Pointcut(value = "@annotation(cn.liuyiyou.springboot.mycache.annotation.PutCache)")
+  @Pointcut(value = "@annotation(cn.liuyiyou.springboot.mycache.annotation.DelCache)")
   public void pointcut() {
   }
 
   @Around(value = "pointcut()")
-  public Object around(ProceedingJoinPoint joinPoint) throws Throwable {
+  public void around(ProceedingJoinPoint joinPoint) throws Throwable {
     MethodSignature signature = (MethodSignature) joinPoint.getSignature();
     Method method = joinPoint.getTarget().getClass()
         .getMethod(signature.getName(), signature.getMethod().getParameterTypes());
     CachePrefix cachePrefix = method.getDeclaringClass().getAnnotation(CachePrefix.class);
     if (cachePrefix == null) {
-      throw new RuntimeException("@PutCache注解的方法必须要在所在类上加@CachePrefix");
+      throw new RuntimeException("@GetCache注解的方法必须要在所在类上加@CachePrefix");
     }
-    PutCache cachePut = method.getAnnotation(PutCache.class);
-    String key = cachePut.key();
+    DelCache delCache = method.getAnnotation(DelCache.class);
+    String key = delCache.key();
     if (StringUtils.isEmpty(key)) {
       key = cachePrefix.classPrefix() + simpleKeyGenerator
-          .generate(joinPoint.getTarget(), method, joinPoint.getArgs()[0]).toString();
+          .generate(joinPoint.getTarget(), method, joinPoint.getArgs()).toString();
     }
     redisTemplate.delete(key);
-    if (redisTemplate.opsForValue().get(key) != null) {
-      return redisTemplate.opsForValue().get(key);
-    } else {
-      final Object proceed = joinPoint.proceed();
-      redisTemplate.opsForValue().set(key, proceed);
-      return proceed;
-    }
+  }
 
+  private RedisSerializer<Object> valueSerializer() {
+    ObjectMapper mapper = new ObjectMapper();
+    //序列化的时候序列对象的所有属性
+    mapper.disable(SerializationFeature.WRITE_DATES_AS_TIMESTAMPS);
+    mapper.registerModule(new JavaTimeModule());
+    return new GenericJackson2JsonRedisSerializer(mapper);
   }
 
 }

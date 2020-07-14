@@ -1,12 +1,15 @@
 package cn.liuyiyou.springboot.mycache.controller;
 
 
+import cn.liuyiyou.springboot.mycache.annotation.PostCache;
 import cn.liuyiyou.springboot.mycache.dal.entity.BossProd;
 import cn.liuyiyou.springboot.mycache.service.BossProdService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Pageable;
+import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -30,36 +33,33 @@ public class BossProdController {
 
   @Autowired
   private BossProdService bossProdService;
-//
-//  @GetMapping("/old/{id}")
-//  public BossProd getByIdOld(@PathVariable Long id) {
-//    return bossProdService.findById2(id);
-//  }
 
   @GetMapping("/{id}")
   public BossProd getById(@PathVariable Long id) {
     return bossProdService.findById(id);
   }
+
+  @DeleteMapping("/{id}")
+  public void delById(@PathVariable Long id) {
+    bossProdService.delete(id);
+  }
+
   @GetMapping()
   public Object pageCache(Pageable pageable) {
     return bossProdService.pageCache(pageable);
   }
 
-  @GetMapping("/page")
-  public Object getById(Pageable pageable) {
-    return bossProdService.page(pageable);
-  }
 
-  @GetMapping("/update/{id}")
-  public BossProd updateById(@PathVariable Long id) {
-    return bossProdService.updateById(id);
+  @PostMapping()
+  public BossProd add(@RequestBody BossProd bossProd) {
+    return bossProdService.add(bossProd);
   }
 
   @PutMapping()
-  public BossProd update(@RequestBody BossProd bossProd){
-     BossProd dbBossProd = bossProdService.findById(bossProd.getBossProdId());
-     dbBossProd.setProdName(bossProd.getProdName());
-    return bossProdService.save(bossProd.getBossProdId(),dbBossProd);
+  public BossProd update(@RequestBody BossProd bossProd) {
+    BossProd dbBossProd = bossProdService.findById(bossProd.getBossProdId());
+    dbBossProd.setProdName(bossProd.getProdName());
+    return bossProdService.modify(bossProd.getBossProdId(), dbBossProd);
   }
 
 }

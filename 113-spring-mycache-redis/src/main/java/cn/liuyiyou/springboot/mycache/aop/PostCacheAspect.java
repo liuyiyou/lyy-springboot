@@ -1,7 +1,9 @@
 package cn.liuyiyou.springboot.mycache.aop;
 
 import cn.liuyiyou.springboot.mycache.annotation.CachePrefix;
-import cn.liuyiyou.springboot.mycache.annotation.PutCache;
+import cn.liuyiyou.springboot.mycache.annotation.PostCache;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.JSONObject;
 import java.lang.reflect.Method;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
@@ -21,7 +23,7 @@ import org.springframework.util.StringUtils;
  */
 @Aspect
 @Component
-public class PutCacheAspect {
+public class PostCacheAspect {
 
   @Autowired
   private KeyGenerator simpleKeyGenerator;
@@ -29,7 +31,7 @@ public class PutCacheAspect {
   @Autowired
   RedisTemplate<String, Object> redisTemplate;
 
-  @Pointcut(value = "@annotation(cn.liuyiyou.springboot.mycache.annotation.PutCache)")
+  @Pointcut(value = "@annotation(cn.liuyiyou.springboot.mycache.annotation.PostCache)")
   public void pointcut() {
   }
 
@@ -42,21 +44,16 @@ public class PutCacheAspect {
     if (cachePrefix == null) {
       throw new RuntimeException("@PutCache注解的方法必须要在所在类上加@CachePrefix");
     }
-    PutCache cachePut = method.getAnnotation(PutCache.class);
-    String key = cachePut.key();
+    PostCache postCache = method.getAnnotation(PostCache.class);
+    String key = postCache.key();
     if (StringUtils.isEmpty(key)) {
-      key = cachePrefix.classPrefix() + simpleKeyGenerator
-          .generate(joinPoint.getTarget(), method, joinPoint.getArgs()[0]).toString();
+      throw new RuntimeException("新增方法必须指定主键key");
     }
-    redisTemplate.delete(key);
-    if (redisTemplate.opsForValue().get(key) != null) {
-      return redisTemplate.opsForValue().get(key);
-    } else {
-      final Object proceed = joinPoint.proceed();
-      redisTemplate.opsForValue().set(key, proceed);
-      return proceed;
-    }
-
+    Object proceed = joinPoint.proceed();
+    String s = JSON.toJSONString(proceed);
+    String keyValue = JSONObject.parseObject(s).getString(key);
+    redisTemplate.opsForValue().set(cachePrefix.classPrefix() + keyValue, proceed);
+    return proceed;
   }
 
 }

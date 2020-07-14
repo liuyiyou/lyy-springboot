@@ -26,6 +26,8 @@ public @interface GetCache {
 //  @AliasFor(annotation = Cacheable.class)
   String key() default "";
 
+  int second() default 60 * 60; //秒
+
 //  @AliasFor("cacheNames")
 //  String keyPrefix() default "";
 }
