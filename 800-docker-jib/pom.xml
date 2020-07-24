@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+  xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+  <modelVersion>4.0.0</modelVersion>
+  <parent>
+    <groupId>org.springframework.boot</groupId>
+    <artifactId>spring-boot-starter-parent</artifactId>
+    <version>2.3.1.RELEASE</version>
+    <relativePath/> <!-- lookup parent from repository -->
+  </parent>
+  <groupId>cn.liuyiyou.springboot</groupId>
+  <artifactId>800-docker-jib</artifactId>
+  <version>0.0.1-SNAPSHOT</version>
+  <name>800-docker-jib</name>
+  <description>Demo project for Spring Boot</description>
+
+  <properties>
+    <java.version>1.8</java.version>
+  </properties>
+
+  <dependencies>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-web</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-data-jpa</artifactId>
+    </dependency>
+    <dependency>
+      <groupId>mysql</groupId>
+      <artifactId>mysql-connector-java</artifactId>
+      <scope>runtime</scope>
+    </dependency>
+    <dependency>
+      <groupId>org.projectlombok</groupId>
+      <artifactId>lombok</artifactId>
+      <optional>true</optional>
+    </dependency>
+    <dependency>
+      <groupId>javax.validation</groupId>
+      <artifactId>validation-api</artifactId>
+    </dependency>
+
+    <dependency>
+      <groupId>org.springframework.boot</groupId>
+      <artifactId>spring-boot-starter-test</artifactId>
+      <scope>test</scope>
+      <exclusions>
+        <exclusion>
+          <groupId>org.junit.vintage</groupId>
+          <artifactId>junit-vintage-engine</artifactId>
+        </exclusion>
+      </exclusions>
+    </dependency>
+  </dependencies>
+
+  <build>
+    <plugins>
+      <plugin>
+        <groupId>org.springframework.boot</groupId>
+        <artifactId>spring-boot-maven-plugin</artifactId>
+      </plugin>
+
+      <plugin>
+        <groupId>com.google.cloud.tools</groupId>
+        <artifactId>jib-maven-plugin</artifactId>
+        <version>1.7.0</version>
+        <configuration>
+          <allowInsecureRegistries>true</allowInsecureRegistries>
+          <from>
+            <image>openjdk:8-jre</image>
+          </from>
+          <to>
+            <image>lyy-docker/docker-jib</image>
+            <tags>
+              <!--suppress UnresolvedMavenProperty -->
+              <!--<tag>${current.time}</tag>-->
+              <tag>latest</tag>
+            </tags>
+          </to>
+          <container>
+            <!--<ports>-->
+              <!--<port>9082</port>-->
+            <!--</ports>-->
+            <environment>
+              <!--<SPRING_OUTPUT_ANSI_ENABLED>ALWAYS</SPRING_OUTPUT_ANSI_ENABLED>-->
+              <!--<JHIPSTER_SLEEP>0</JHIPSTER_SLEEP>-->
+            </environment>
+            <!--<creationTime>USE_CURRENT_TIMESTAMP</creationTime>-->
+            <useCurrentTimestamp>true</useCurrentTimestamp>
+            <!--解决Could not find or load main class ${start-class} -->
+            <mainClass>cn.liuyiyou.springboot.Application</mainClass>
+          </container>
+        </configuration>
+      </plugin>
+    </plugins>
+  </build>
+
+</project>

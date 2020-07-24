@@ -1,0 +1,10 @@
+version: '2'
+services:
+  lyy-docker-app:
+    container_name: 'docker-jib'
+    image: lyy-docker/docker-jib:latest
+#    restart: always
+    volumes:
+    - ./logs:/logs/
+    ports:
+    - 9082:9082
