@@ -14,18 +14,20 @@ import org.springframework.context.annotation.Configuration;
 @Configuration
 public class LyyProperties {
 
-  /**
-   * 年龄
-   */
-  private int age = 18;
-  /**
-   * 姓名
-   */
-  private String name = "lyy";
-  /**
-   * 性别
-   */
-  private int sex = 0;
+    /**
+     * 年龄
+     */
+    private int age = 18;
+    /**
+     * 姓名
+     */
+    private String name = "lyy";
+    /**
+     * 性别
+     */
+    private int sex = 0;
+
+    private Boolean popWindow = true;
 
 
 }
