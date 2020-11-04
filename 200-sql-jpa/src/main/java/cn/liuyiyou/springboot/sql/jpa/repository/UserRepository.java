@@ -10,6 +10,6 @@ import org.springframework.data.jpa.repository.JpaRepository;
  */
 //@NoRepositoryBean
 //@Repository
-public interface UserRepository extends JpaRepository<User, Integer> {
+public interface UserRepository extends GenericRepository<User, Integer> {
 
 }

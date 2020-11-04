@@ -16,6 +16,10 @@ CREATE  TABLE  user_address (
    county varchar (20));
 
 
-insert  into  user values (1,'liuyiyou','lyy@163.com');
+insert  into  user values (1,'liuyiyou1','lyy@163.com');
+insert  into  user values (2,'liuyiyou2','lyy@163.com');
+insert  into  user values (3,'liuyiyou3','lyy@163.com');
+insert  into  user values (4,'liuyiyou4','lyy@163.com');
+insert  into  user values (5,'liuyiyou5','lyy@163.com');
 insert  into  user_address values (10,1,'湖南','长沙','宁乡');
 insert  into  user_address values (20,1,'湖南','常德','汉寿');

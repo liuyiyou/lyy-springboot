@@ -1,7 +1,10 @@
 package cn.liuyiyou.springboot.json;
 
 import java.time.Instant;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.ZoneId;
+import java.time.ZonedDateTime;
 import java.time.format.DateTimeFormatter;
 import java.time.format.DateTimeFormatterBuilder;
 import org.junit.jupiter.api.Test;
@@ -21,6 +24,28 @@ class DateTimeTest {
 
 
     System.out.println(Instant.now().atZone(ZoneId.systemDefault()).format(ISOFormatter));
+
+
+
+  }
+
+  @Test
+  void all() {
+    System.out.println(LocalDate.now());
+    System.out.println(LocalDateTime.now());
+    System.out.println(Instant.now());
+    System.out.println(ZonedDateTime.now());
+  }
+
+  @Test
+  void localDate() {
+    System.out.println(LocalDate.now());
+  }
+
+  @Test
+  void localDateTime() {
+    System.out.println(LocalDateTime.now());
+
   }
 
 }

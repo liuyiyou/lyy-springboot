@@ -42,8 +42,13 @@ public class Java8DateTimeConfig {
             module.addSerializer(LocalDate.class, new LocalDateSerializer(DateTimeFormatter.ofPattern(dateFormat)));
             module.addDeserializer(LocalDate.class, new LocalDateDeserializer(DateTimeFormatter.ofPattern(dateFormat)));
 
-            module.addSerializer(Instant.class, JSR310DateTimeSerializer.INSTANCE);
-            module.addDeserializer(Instant.class, JSR310DateTimeDeserializer.INSTANCE);
+
+//            module.addSerializer(Instant.class, JSR310DateTimeSerializer.INSTANCE);
+//            module.addDeserializer(Instant.class, JSR310DateTimeDeserializer.INSTANCE);
+
+            //Goods(id=1, name=手机, localDateTimeFormat=2020-09-22T17:51:38, instantFormat=null, dateFormat=Tue Sep 22 17:51:38 CST 2020, date=Tue Sep 22 17:51:38 CST 2020, localDateTime=2020-09-22T17:51:38, instant=null)
+            module.addSerializer(Instant.class, CustomInstantSerializer.INSTANCE);
+            module.addDeserializer(Instant.class, CustomInstantDeserializer.INSTANCE);
 
             builder.modulesToInstall(module);
 
