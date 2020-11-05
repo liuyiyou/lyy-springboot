@@ -67,42 +67,6 @@ public class NextSimpleJpaReository<T, ID> extends SimpleJpaRepository<T, ID>  {
         return query.getSingleResult();
     }
 
-    private <T> Root<T> applySpecificationToCriteria(Specification<T> spec, Class<T> domainClass,
-        CriteriaQuery<T> query) {
-
-        Assert.notNull(domainClass, "Domain class must not be null!");
-        Assert.notNull(query, "CriteriaQuery must not be null!");
-
-        Root<T> root = query.from(domainClass);
-
-        if (spec == null) {
-            return root;
-        }
-
-        CriteriaBuilder builder = em.getCriteriaBuilder();
-        Predicate predicate = spec.toPredicate(root, query, builder);
-
-        if (predicate != null) {
-            query.where(predicate);
-        }
-
-        return root;
-    }
-
-    private static long executeCountQuery(TypedQuery<Long> query) {
-
-        Assert.notNull(query, "TypedQuery must not be null!");
-
-        List<Long> totals = query.getResultList();
-        long total = 0L;
-
-        for (Long element : totals) {
-            total += element == null ? 0 : element;
-        }
-
-        return total;
-    }
-
 
     private static class ExampleSpecification<T> implements Specification<T> {
 
