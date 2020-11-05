@@ -59,11 +59,12 @@ public class NextSimpleJpaReository<T, ID> extends SimpleJpaRepository<T, ID>  {
     }
 
 
-    public Long pageCount(final Example<T> example) {
+    public Long pageCount(final Example<T> example,Pageable pageable) {
         ExampleSpecification<T> spec = new ExampleSpecification<>(example, EscapeCharacter.DEFAULT);
-        CriteriaBuilder builder = em.getCriteriaBuilder();
-        CriteriaQuery<Long> query = builder.createQuery(Long.class);
-        return em.createQuery(query).getSingleResult();
+        TypedQuery<Long> query = getCountQuery(spec, getDomainClass());
+        query.setFirstResult((int) pageable.getOffset());
+        query.setMaxResults(1001);
+        return query.getSingleResult();
     }
 
     private <T> Root<T> applySpecificationToCriteria(Specification<T> spec, Class<T> domainClass,

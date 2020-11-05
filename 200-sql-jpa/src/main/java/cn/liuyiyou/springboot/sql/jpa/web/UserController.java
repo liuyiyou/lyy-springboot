@@ -7,6 +7,8 @@ import java.util.Optional;
 import javax.persistence.criteria.Predicate;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.web.PageableDefault;
@@ -47,6 +49,26 @@ public class UserController {
         Specification<User> specification = getUserSpecification(user);
         return userRepository.pageList(specification, pageable.previousOrFirst());
     }
+
+
+    @GetMapping("/listExample")
+    public List<User> listExample(User user, @PageableDefault Pageable pageable) {
+        log.info("获取用户列表....");
+        ExampleMatcher matcher = ExampleMatcher.matchingAll();
+        Example<User> userExample = Example.of(user,matcher);
+        return userRepository.pageList(userExample, pageable.previousOrFirst());
+    }
+
+
+    @GetMapping("/listCountExample")
+    public Long listCountExample(User user, @PageableDefault Pageable pageable) {
+        log.info("获取用户数量...条件有limit.");
+        ExampleMatcher matcher = ExampleMatcher.matchingAll();
+        Example<User> userExample = Example.of(user,matcher);
+        return userRepository.pageCount(userExample, pageable);
+    }
+
+
 
     @GetMapping("/listCount")
     public Long listCount(User user, @PageableDefault Pageable pageable) {
