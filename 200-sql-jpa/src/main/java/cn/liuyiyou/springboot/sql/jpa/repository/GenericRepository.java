@@ -23,5 +23,5 @@ public interface GenericRepository<T, ID extends Serializable> extends JpaReposi
 
     Long pageCount(Specification<T> spec, Pageable pageable);
 
-    Long pageCount(Example<T> example);
+    Long pageCount(Example<T> example, Pageable pageable);
 }
