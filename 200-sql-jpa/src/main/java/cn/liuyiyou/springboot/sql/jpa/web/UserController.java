@@ -59,8 +59,9 @@ public class UserController {
         return (Specification<User>) (root, query, criteriaBuilder) -> {
             Predicate predicate = criteriaBuilder.conjunction();
             if (user.getName() != null) {
-                predicate.getExpressions().add(criteriaBuilder.like(root.get("name"),
-                    "%" + user.getName()));
+                final Predicate name = criteriaBuilder.like(root.get("name"),
+                    "%" + user.getName() + "%");
+                predicate.getExpressions().add(name);
             }
             return predicate;
         };
