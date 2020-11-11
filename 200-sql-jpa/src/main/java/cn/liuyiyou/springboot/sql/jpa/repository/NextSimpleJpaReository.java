@@ -1,14 +1,17 @@
 package cn.liuyiyou.springboot.sql.jpa.repository;
 
-import java.util.Collections;
 import java.util.List;
 import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.persistence.TypedQuery;
 import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaQuery;
-import javax.persistence.criteria.Order;
 import javax.persistence.criteria.Predicate;
 import javax.persistence.criteria.Root;
+import javax.persistence.metamodel.EntityType;
+import org.hibernate.query.criteria.internal.expression.LiteralExpression;
+import org.hibernate.query.criteria.internal.predicate.CompoundPredicate;
+import org.hibernate.query.criteria.internal.predicate.LikePredicate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Pageable;
@@ -17,6 +20,7 @@ import org.springframework.data.jpa.domain.Specification;
 import org.springframework.data.jpa.repository.query.EscapeCharacter;
 import org.springframework.data.jpa.repository.support.JpaEntityInformation;
 import org.springframework.data.jpa.repository.support.SimpleJpaRepository;
+import org.springframework.lang.Nullable;
 import org.springframework.util.Assert;
 
 /**
@@ -24,7 +28,7 @@ import org.springframework.util.Assert;
  * @date: 2020/11/4
  * @version: V1.0
  */
-public class NextSimpleJpaReository<T, ID> extends SimpleJpaRepository<T, ID>  {
+public class NextSimpleJpaReository<T, ID> extends SimpleJpaRepository<T, ID> {
 
     private final JpaEntityInformation<T, ?> entityInformation;
     private final EntityManager em;
@@ -51,22 +55,56 @@ public class NextSimpleJpaReository<T, ID> extends SimpleJpaRepository<T, ID>  {
         return query.getResultList();
     }
 
-    public Long pageCount(Specification<T> spec,Pageable pageable) {
-        TypedQuery<Long> query = getCountQuery(spec, getDomainClass());
-        query.setFirstResult((int) pageable.getOffset());
-        query.setMaxResults(1001);
-        return query.getSingleResult();
+    public Long pageCount(Specification<T> spec, Pageable pageable) {
+        final EntityType<T> entity = em.getEntityManagerFactory().createEntityManager().getMetamodel().entity(getDomainClass());
+        final Query nativeQuery = em.createNativeQuery("select  count(1) from ( select  1 from " + entity.getName() + " where 1 = 1  limit 1001) temp");
+        final List singleResult = nativeQuery.getResultList();
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        CriteriaQuery<T> query = builder.createQuery(getDomainClass());
+        Root<T> root = query.from(getDomainClass());
+        Predicate predicate = spec.toPredicate(root, query, builder);
+
+
+        if (predicate != null) {
+//            final LiteralExpression pattern = (LiteralExpression) ((LikePredicate) predicate.getExpressions().get(0)).getPattern().;
+            query.where(predicate);
+
+
+        }
+        em.createQuery(query);
+        return Long.valueOf(singleResult.get(0).toString());
+    }
+
+    private <S, U extends T> Root<U> applySpecificationToCriteria(@Nullable Specification<U> spec, Class<U> domainClass,
+        CriteriaQuery<S> query) {
+
+        Assert.notNull(domainClass, "Domain class must not be null!");
+        Assert.notNull(query, "CriteriaQuery must not be null!");
+
+        Root<U> root = query.from(domainClass);
+
+        if (spec == null) {
+            return root;
+        }
+
+        CriteriaBuilder builder = em.getCriteriaBuilder();
+        Predicate predicate = spec.toPredicate(root, query, builder);
+
+        if (predicate != null) {
+            query.where(predicate);
+        }
+
+        return root;
     }
 
 
-    public Long pageCount(final Example<T> example,Pageable pageable) {
+    public Long pageCount(final Example<T> example, Pageable pageable) {
         ExampleSpecification<T> spec = new ExampleSpecification<>(example, EscapeCharacter.DEFAULT);
         TypedQuery<Long> query = getCountQuery(spec, getDomainClass());
         query.setFirstResult((int) pageable.getOffset());
-        query.setMaxResults(1001);
+        query.setMaxResults(3);
         return query.getSingleResult();
     }
-
 
     private static class ExampleSpecification<T> implements Specification<T> {
 

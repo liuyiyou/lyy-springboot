@@ -1,6 +1,7 @@
 package cn.liuyiyou.springboot.rabbitmq.config;
 
-import cn.liuyiyou.springboot.rabbitmq.receiv.SimpleReceiver;
+import cn.liuyiyou.springboot.rabbitmq.receiver.SimpleReceiver;
+import cn.liuyiyou.springboot.rabbitmq.receiver.SimpleReceiverException;
 import cn.liuyiyou.springboot.rabbitmq.send.SimpleSender;
 import org.springframework.amqp.core.Queue;
 import org.springframework.context.annotation.Bean;
@@ -18,7 +19,7 @@ public class SimpleRabbitConfig {
 
   @Bean
   public Queue hello() {
-    return new Queue("simple.hello");
+    return new Queue("simple");
   }
 
   @Bean
@@ -30,6 +31,17 @@ public class SimpleRabbitConfig {
   @Bean
   public SimpleReceiver simpleReceiver() {
     return new SimpleReceiver();
+  }
+
+
+  @Bean
+  public Queue exception() {
+    return new Queue("exception");
+  }
+
+  @Bean
+  public SimpleReceiverException simpleReceiverException() {
+    return new SimpleReceiverException();
   }
 
 }

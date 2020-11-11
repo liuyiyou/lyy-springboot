@@ -26,6 +26,13 @@ public class RabbitController {
     return "success";
   }
 
+  @GetMapping("/exception")
+  public String exception(String message) {
+    simpleSender.sendException(message);
+    return "success";
+  }
+
+
   @GetMapping("/simple")
   public String simple() {
     String message = "hello";

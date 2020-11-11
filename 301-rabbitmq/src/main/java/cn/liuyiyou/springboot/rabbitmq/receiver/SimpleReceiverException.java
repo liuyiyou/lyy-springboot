@@ -1,4 +1,4 @@
-package cn.liuyiyou.springboot.rabbitmq.receiv;
+package cn.liuyiyou.springboot.rabbitmq.receiver;
 
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.amqp.rabbit.annotation.RabbitHandler;
@@ -10,12 +10,13 @@ import org.springframework.amqp.rabbit.annotation.RabbitListener;
  * @version: V1.0
  */
 @Slf4j
-@RabbitListener(queues = "simple.hello")
-public class SimpleReceiver {
+@RabbitListener(queues = "exception")
+public class SimpleReceiverException {
 
   @RabbitHandler
   public void receive(String message) {
     log.info("[X] received '{}'", message);
+    throw  new RuntimeException("抛出异常");
   }
 
 }

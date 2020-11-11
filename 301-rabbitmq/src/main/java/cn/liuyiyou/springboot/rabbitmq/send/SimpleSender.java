@@ -15,11 +15,17 @@ public class SimpleSender {
   @Autowired
   private RabbitTemplate rabbitTemplate;
 
-  private static final String queueName = "simple.hello";
+  private static final String queueName = "simple";
+
+  private static final String exceptionQueue="exception";
 
   public void send(String message) {
     rabbitTemplate.convertAndSend(queueName, message);
     log.info("[x] Send '{}'", message);
   }
 
+  public void sendException(final String message) {
+    rabbitTemplate.convertAndSend(exceptionQueue, message);
+    log.info("[x] Send '{}'", message);
+  }
 }

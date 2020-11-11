@@ -1,6 +1,8 @@
 package cn.liuyiyou.springboot.sql.jpa;
 
+import cn.liuyiyou.springboot.sql.jpa.entity.Book;
 import cn.liuyiyou.springboot.sql.jpa.entity.User;
+import cn.liuyiyou.springboot.sql.jpa.repository.BookRepository;
 import cn.liuyiyou.springboot.sql.jpa.repository.UserRepository;
 import java.util.List;
 import org.junit.jupiter.api.Test;
@@ -27,5 +29,8 @@ class ApplicationTests {
     final List<User> all = userRepository.findAll();
     all.forEach(user1 -> System.out.println(user1.getEmail()));
   }
+
+
+
 
 }
