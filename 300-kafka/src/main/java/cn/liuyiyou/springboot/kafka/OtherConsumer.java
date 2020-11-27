@@ -1,7 +1,9 @@
 package cn.liuyiyou.springboot.kafka;
 
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.kafka.annotation.KafkaListener;
+import org.springframework.kafka.core.KafkaTemplate;
 import org.springframework.stereotype.Component;
 
 /**
@@ -12,6 +14,10 @@ import org.springframework.stereotype.Component;
 @Component
 @Slf4j
 public class OtherConsumer {
+
+  @Autowired
+  private KafkaTemplate kafkaTemplate;
+
 
   @KafkaListener(topics = "default-topic")
   public void processMessage(String msg){
