@@ -33,7 +33,7 @@ public class UserService {
 
     public User findByIdCacheSafe(Integer id) {
         log.info("开始时间:" + Instant.now().toString());
-        String s = null;
+        String s;
         try {
             s = redisTemplate.opsForValue().get("User:" + id);
             if (StringUtils.isEmpty(s)) {
@@ -65,6 +65,7 @@ public class UserService {
             return JSONUtil.toBean(s, User.class);
         }
     }
+
 
     private User findById(Integer id) {
         return jdbcTemplate.queryForObject("select * from user where  id = ?", new Object[]{id}, (resultSet, rowNum) -> {

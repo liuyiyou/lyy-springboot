@@ -50,8 +50,8 @@ public class UserService {
 
   //http://localhost:8080/users/1
 
-//  @Cacheable(value = "user", key = "#id")
-  @GetCache
+  @Cacheable(value = "user", key = "#id")
+//  @GetCache
   public User findById(Integer id) {
     Optional<User> userOptional = userRepository.findById(id);
     return userOptional
