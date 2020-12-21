@@ -47,7 +47,8 @@ public class UserController {
     public List<User> list(User user, @PageableDefault Pageable pageable) {
         log.info("获取用户列表....");
         Specification<User> specification = getUserSpecification(user);
-        return userRepository.pageList(specification, pageable.previousOrFirst());
+//        return userRepository.pageList(specification, pageable.previousOrFirst());
+        return null;
     }
 
 
@@ -56,7 +57,8 @@ public class UserController {
         log.info("获取用户列表....");
         ExampleMatcher matcher = ExampleMatcher.matchingAll();
         Example<User> userExample = Example.of(user,matcher);
-        return userRepository.pageList(userExample, pageable.previousOrFirst());
+//        return userRepository.pageList(userExample, pageable.previousOrFirst());
+        return null;
     }
 
 
@@ -65,7 +67,8 @@ public class UserController {
         log.info("获取用户数量...条件有limit.");
         ExampleMatcher matcher = ExampleMatcher.matchingAll();
         Example<User> userExample = Example.of(user,matcher);
-        return userRepository.pageCount(userExample, pageable);
+//        return userRepository.pageCount(userExample, pageable);
+        return null;
     }
 
 
@@ -74,7 +77,8 @@ public class UserController {
     public Long listCount(User user, @PageableDefault Pageable pageable) {
         log.info("获取用户数量...条件有limit.");
         Specification<User> specification = getUserSpecification(user);
-        return userRepository.pageCount(specification, pageable);
+//        return userRepository.pageCount(specification, pageable);
+        return null;
     }
 
     private Specification<User> getUserSpecification(final User user) {
