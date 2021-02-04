@@ -19,40 +19,40 @@ import org.springframework.util.concurrent.ListenableFutureCallback;
 @Slf4j
 public class Producer {
 
-  @Autowired
-  private KafkaTemplate kafkaTemplate;
+    @Autowired
+    private KafkaTemplate kafkaTemplate;
 
 
-  /**
-   * https://blog.csdn.net/hadues/article/details/88250249 事务消息
-   */
-  public void sendMsg(String topic, String message, boolean userTransaction) {
-    if (userTransaction) {
-      kafkaTemplate.executeInTransaction(t -> {
-        t.send(topic, message);
-        return true;
-      });
+    /**
+     * https://blog.csdn.net/hadues/article/details/88250249 事务消息
+     */
+    public void sendMsg(String topic, String message, boolean userTransaction) {
+        if (userTransaction) {
+            kafkaTemplate.executeInTransaction(t -> {
+                t.send(topic, message);
+                return true;
+            });
+        }
     }
-  }
 
-  public ListenableFuture<String> sendMsg(String msg) {
-    ListenableFuture<String> send = kafkaTemplate.send("default-topic", msg);
-    send.addCallback(new ListenableFutureCallback<String>() {
-      @Override
-      public void onFailure(Throwable throwable) {
-        log.error("发送失败", throwable);
-      }
+    public ListenableFuture<String> sendMsg(String msg) {
+        ListenableFuture<String> send = kafkaTemplate.send("default-topic", msg);
+        send.addCallback(new ListenableFutureCallback<String>() {
+            @Override
+            public void onFailure(Throwable throwable) {
+                log.error("发送失败", throwable);
+            }
 
-      @Override
-      public void onSuccess(String o) {
-        log.info("发送成功", o);
-      }
-    });
-    return send;
-  }
+            @Override
+            public void onSuccess(String o) {
+                log.info("发送成功", o);
+            }
+        });
+        return send;
+    }
 
 
-  public void sendMsg(String topic, String message) {
-    kafkaTemplate.send(new ProducerRecord(topic, "myKey",message));
-  }
+    public void sendMsg(String topic, String message) {
+        kafkaTemplate.send(new ProducerRecord(topic, "myKey", message));
+    }
 }

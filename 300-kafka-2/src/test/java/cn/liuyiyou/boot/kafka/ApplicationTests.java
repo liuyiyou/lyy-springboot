@@ -1,4 +1,4 @@
-package cn.liuyiyou.springboot.kafka;
+package cn.liuyiyou.boot.kafka;
 
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;

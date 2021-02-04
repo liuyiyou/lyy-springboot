@@ -12,9 +12,9 @@ import org.apache.kafka.clients.producer.internals.DefaultPartitioner;
 @Slf4j
 public class MyPartitioner extends DefaultPartitioner {
 
-  @Override
-  public void configure(Map<String, ?> configs) {
-    log.info("这是自定义分区器");
-    super.configure(configs);
-  }
+    @Override
+    public void configure(Map<String, ?> configs) {
+        log.info("这是自定义分区器");
+        super.configure(configs);
+    }
 }

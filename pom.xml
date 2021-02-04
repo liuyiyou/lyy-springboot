@@ -39,6 +39,7 @@
     <module>201-mybatis</module>
     <module>202-mybaits-plus</module>
     <module>300-kafka</module>
+    <module>300-kafka-2</module>
     <module>301-rabbitmq</module>
     <module>302-rocketmq</module>
     <module>400-elasticsearch</module>

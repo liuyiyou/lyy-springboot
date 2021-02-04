@@ -15,14 +15,14 @@ import org.springframework.stereotype.Component;
 @Slf4j
 public class OtherConsumer {
 
-  @Autowired
-  private KafkaTemplate kafkaTemplate;
+    @Autowired
+    private KafkaTemplate kafkaTemplate;
 
 
-  @KafkaListener(topics = "default-topic")
-  public void processMessage(String msg){
-    log.info("OtherConsumer");
-    log.info(msg);
-  }
+    @KafkaListener(topics = "default-topic")
+    public void processMessage(String msg) {
+        log.info("OtherConsumer");
+        log.info(msg);
+    }
 
 }
