@@ -1,4 +1,4 @@
-package cn.liuyiyou.springboot.kafka;
+package cn.liuyiyou.springboot.kafka.producer;
 
 import java.util.concurrent.CompletableFuture;
 import lombok.extern.slf4j.Slf4j;
@@ -45,7 +45,7 @@ public class Producer {
 
             @Override
             public void onSuccess(String o) {
-                log.info("发送成功", o);
+                log.info("发送成功");
             }
         });
         return send;
