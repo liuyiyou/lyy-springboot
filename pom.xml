@@ -12,7 +12,7 @@
     <relativePath/> <!-- lookup parent from repository -->
   </parent>
 
-  <groupId>cn.liuyiyou</groupId>
+  <groupId>cn.liuyiyou.springboot</groupId>
   <artifactId>lyy-springboot</artifactId>
   <version>0.0.1-SNAPSHOT</version>
   <packaging>pom</packaging>
@@ -35,15 +35,18 @@
     <module>103-properties</module>
     <module>110-spring-cache</module>
     <module>111-spring-cache-redis</module>
+    <module>115-redis</module>
+    <module>116-redisson</module>
     <module>200-sql-jpa</module>
     <module>201-mybatis</module>
     <module>202-mybaits-plus</module>
     <module>300-kafka</module>
-    <module>300-kafka-2</module>
+    <module>300-kafka-3</module>
     <module>301-rabbitmq</module>
     <module>302-rocketmq</module>
     <module>400-elasticsearch</module>
     <module>500-quartz</module>
+    <module>501-webservice</module>
     <module>600-security-hello</module>
     <module>700-admin</module>
     <module>701-client</module>
