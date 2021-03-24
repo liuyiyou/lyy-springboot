@@ -25,6 +25,8 @@ public class UserService {
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
+
+
     public boolean add(String name) {
         int update = jdbcTemplate.update("insert  into  user(name) values (?)", name);
         return update > 0;
@@ -36,15 +38,7 @@ public class UserService {
         String s;
         try {
             s = redisTemplate.opsForValue().get("User:" + id);
-            if (StringUtils.isEmpty(s)) {
-                log.info("从数据库获取");
-                User user = findById(id);
-                redisTemplate.opsForValue().set("User:" + id, JSONUtil.toJsonStr(user));
-                return user;
-            } else {
-                log.info("从缓存获取");
-                return JSONUtil.toBean(s, User.class);
-            }
+            return getUser(id, s);
         } catch (Exception e) {
             log.info("redis错误，从数据库中获取");
             return findById(id);
@@ -55,6 +49,10 @@ public class UserService {
         log.info("开始时间:" + Instant.now().toString());
         String s = redisTemplate.opsForValue().get("User:" + id);
         log.info("结束时间:" + Instant.now().toString());
+        return getUser(id, s);
+    }
+
+    private User getUser(final Integer id, final String s) {
         if (StringUtils.isEmpty(s)) {
             log.info("从数据库获取");
             User user = findById(id);

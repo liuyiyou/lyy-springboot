@@ -1,0 +1,29 @@
+management:
+  endpoints:
+    web:
+      exposure:
+        include: '*'
+server:
+  port: 10110
+spring:
+  application:
+    name: spring-cache
+  boot:
+    admin:
+      client:
+        instance:
+          metadata:
+            user:
+              name: '{spring.security.user.name}'
+              password: '{spring.security.user.password}'
+        url: http://localhost:10700
+  datasource:
+    driver-class-name: org.h2.Driver
+    password: ''
+    schema: classpath:init.sql
+    data: classpath:data.sql
+    # jdbc:h2:file:~/opt/jpadb;MODE=MYSQL;
+    url: jdbc:h2:mem:default;MODE=MYSQL;DB_CLOSE_DELAY=-1
+    username: sa
+  jpa:
+    show-sql: true

@@ -1,20 +1,19 @@
 package cn.liuyiyou.boot.entity;
 
 import lombok.Data;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.redis.core.RedisHash;
 
 /**
  * @author: liuyiyou.cn
- * @date: 2020/11/26
+ * @date: 2021/3/20
  * @version: V1.0
  */
 @Data
-@RedisHash("user")
-public class User {
+@RedisHash("address")
+public class Address {
 
-    @Id
     private Integer id;
-    private String name;
-//    private Address address;
+    private String prov;
+    private String city;
+    private String county;
 }

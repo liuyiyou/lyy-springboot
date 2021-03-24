@@ -2,6 +2,7 @@ package cn.liuyiyou.springboot.cache.web;
 
 import cn.liuyiyou.springboot.cache.entity.User;
 import cn.liuyiyou.springboot.cache.service.UserService;
+import java.util.List;
 import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
@@ -24,14 +25,17 @@ public class UserController {
   @Autowired
   private UserService userService;
 
+  @GetMapping("")
+  public List<User> list(){
+   return  userService.findAll();
+  }
+
   @GetMapping("/{id}")
-  @Cacheable(value = "user", key = "#id")
   public Optional<User> get(@PathVariable("id") Integer id) {
     return userService.findUserById(id);
   }
 
   @GetMapping("/save")
-  @CachePut(value = "user", key = "#id")
   public User save(Integer id, String name) {
     User user = new User();
     user.setId(id);
@@ -40,14 +44,12 @@ public class UserController {
   }
 
   @GetMapping("/delete")
-  @CacheEvict(value = "user", key = "#id")
   public void deleteById(Integer id) {
     userService.deleteById(id);
   }
 
 
   @GetMapping("/deleteAll")
-  @CacheEvict(value = "user", allEntries = true)
   public void deleteAll(Integer id) {
     userService.deleteById(id);
   }
