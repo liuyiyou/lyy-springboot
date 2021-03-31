@@ -1,7 +1,5 @@
 package cn.liuyiyou.springboot.sql.jpa.repository;
 
-import static org.junit.jupiter.api.Assertions.*;
-
 import cn.liuyiyou.springboot.sql.jpa.entity.Activity;
 import java.time.Instant;
 import org.junit.jupiter.api.DisplayName;
@@ -22,10 +20,8 @@ class ActivityRepositoryTest {
 
     @DisplayName("自动生成表结构，看Instant默认映射类型")
     @Test
-    void add(){
+    void add() {
         Activity activity = new Activity();
-        activity.setCreateTime(Instant.now());
-        activity.setId(1);
         activityRepository.save(activity);
     }
 }

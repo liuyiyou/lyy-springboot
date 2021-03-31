@@ -1,6 +1,8 @@
 package cn.liuyiyou.springboot.sql.jpa.repository;
 
 import cn.liuyiyou.springboot.sql.jpa.entity.Activity;
+import java.time.Instant;
+import java.util.List;
 import org.springframework.data.repository.CrudRepository;
 
 /**
@@ -10,4 +12,6 @@ import org.springframework.data.repository.CrudRepository;
  */
 public interface ActivityRepository extends CrudRepository<Activity, Integer> {
 
+    List<Activity> findByEndTimeBeforeAndStatusIsTrueAndAuditStatusAndTenantId(Instant startInstant
+        , Integer auditStatus, String tenantId);
 }

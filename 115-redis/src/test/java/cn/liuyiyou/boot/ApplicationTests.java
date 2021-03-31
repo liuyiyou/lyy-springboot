@@ -26,6 +26,8 @@ class ApplicationTests {
         }
     }
 
+
+
     @Test
     void getById(){
         final Optional<User> byId = userRepository.findById(1);

@@ -1,8 +1,11 @@
 package cn.liuyiyou.springboot.redisson;
 
+import java.util.HashMap;
+import java.util.Map;
 import lombok.extern.slf4j.Slf4j;
 import org.junit.jupiter.api.Test;
 import org.redisson.api.RBucket;
+import org.redisson.api.RBuckets;
 import org.redisson.api.RKeys;
 import org.redisson.api.RedissonClient;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,12 +25,22 @@ class ApplicationTests {
     @Test
     void contextLoads() {
         RBucket<String> mykey = redissonClient.getBucket("key");
-        log.info("keyValue:{}",mykey.get());
+        log.info("keyValue:{}", mykey.get());
         mykey.set("value");
-        log.info("keyValue:{}",mykey.get());
+        log.info("keyValue:{}", mykey.get());
+    }
+
+    void list() {
+        final RBuckets buckets = redissonClient.getBuckets();
+        Map<String, String> loadedBuckets = buckets.get("myBucket1", "myBucket2", "myBucket3");
+    }
+
+    @Test
+    void hash() {
         final RKeys keys = redissonClient.getKeys();
         final long count = keys.count();
-        log.info("count::{}",count);
+        keys.getKeys().forEach(System.out::println);
+        log.info("count::{}", count);
     }
 
 }
